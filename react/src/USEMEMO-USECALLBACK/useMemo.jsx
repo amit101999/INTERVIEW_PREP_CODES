@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-
+// useMemo chaches the values of any state values
 const UseMemo = () => {
 
     const [count, setCount] = useState(0)
