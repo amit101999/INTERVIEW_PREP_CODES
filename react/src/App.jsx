@@ -1,10 +1,14 @@
 import React from 'react'
 import MemoCode from './USEMEMO-USECALLBACK/Callback'
+import MyError from './ERRORBOUNDARY/ErrorBoundary'
 
 const App = () => {
   return (
     <div>
-      <MemoCode />
+      <MyError>
+        <MemoCode />
+      </MyError>
+      asds
     </div>
   )
 }
