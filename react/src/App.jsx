@@ -1,13 +1,15 @@
 import React from 'react'
 import MemoCode from './USEMEMO-USECALLBACK/Callback'
 import MyError from './ERRORBOUNDARY/ErrorBoundary'
+import Request from './RequestCancelation/Request'
 
 const App = () => {
   return (
     <div>
-      <MyError>
+      {/* <MyError>
         <MemoCode />
-      </MyError>
+      </MyError> */}
+      <Request />
       asds
     </div>
   )
