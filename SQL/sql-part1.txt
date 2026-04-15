@@ -1,0 +1,121 @@
+// Join on patients and province_names table 
+SELECT first_name , last_name, province_name from patients join province_names on province_names.province_id = patients.province_id;
+/*
+
+for year 2010
+select * from patients where year(birth_date) = 2010;
+
+inner query
+select first_name,last_name,height from patients where height = (select max(height) from  patients);
+
+
+select first_name from patients group by first_name having count(first_name) <= 1;
+
+
+select first_name , patient_id from patients where first_name like 's____%s';
+
+
+select first_name from patients order by len(first_name) , first_name;
+
+
+Q- Show the total amount of male patients and the total amount of female patients in the patients table.
+Display the two results in the same row.
+select (select count(*) from patients where gender = 'M') as male_patients , 
+ (select count(*) from patients where gender = 'F') as female_patients ;
+
+
+ select patient_id,diagnosis  from admissions group by patient_id  having count(*) > 1;
+
+
+ select city , count(*) as num_pat from patients group by city order by num_pat desc ,city  asc;
+
+ select allergies, count(*) as td from patients where allergies is not null group by allergies order by td desc;
+
+ select first_name , last_name, birth_date from patients  where year(birth_date) between 1970 and 1979 order by birth_date asc;
+
+ select province_id , sum(height) as sm  from patients group by province_id having sm >= 7000;
+
+ select max(weight) - min(weight) from patients where last_name = 'Maroni';
+
+ select day(admission_date) as ad_date, count(*) as adm from admissions group by ad_date  order by adm desc;
+
+
+Q - Show patient_id, attending_doctor_id, and diagnosis for admissions that match one of the two criteria:
+1. patient_id is an odd number and attending_doctor_id is either 1, 5, or 19.
+2. attending_doctor_id contains a 2 and the length of patient_id is 3 characters.
+ select patient_id, attending_doctor_id , diagnosis from admissions where(
+(patient_id % 2 !=0 and attending_doctor_id in (1 ,5 ,19))
+or
+(attending_doctor_id like "%2%" and len(patient_id) = 3) )
+
+
+select d.first_name , d.last_name , count(a.patient_id) from doctors d
+join admissions a on d.doctor_id = a.attending_doctor_id 
+group by d.doctor_id;
+
+
+select d.doctor_id , concat(d.first_name,' ', d.last_name) , min(a.admission_date) , max(a.admission_date)
+from doctors d
+join admissions a on d.doctor_id = a.attending_doctor_id 
+group by d.doctor_id ;
+
+
+select concat(p.first_name, ' ', p.last_name) , a.diagnosis , concat(d.first_name , ' ' , d.last_name) from patients p 
+join admissions a on p.patient_id = a.patient_id 
+join doctors d on d.doctor_id = a.attending_doctor_id;
+
+
+
+
+Q - display the first name, last name and number of duplicate patients based on their first name and last name.
+Ex: A patient with an identical name can be considered a duplicate.
+select first_name , last_name ,  count(*) as FN from patients group by first_name,last_name having FN > 1
+
+
+
+
+
+SELECT concat(first_name , ' ', last_name) , round(height/30.48 , 1) as height , 
+round(weight * 2.205 , 0) as weight ,
+birth_date , 
+case 
+	when gender = 'M' then 'MALE'
+    else 'FEMALE'
+    end as gender_type
+ from patients
+
+
+
+ select max(cnt) , min(cnt) ,round(avg(cnt) , 2) from 
+(select count(*) as cnt , admission_date from admissions group by admission_date)
+
+
+select count(*) as patr_grp , floor(weight /10) * 10 as weight_grp 
+from patients group by weight_grp  order by weight_grp desc;
+
+
+select patient_id ,weight, height  ,
+(case 
+	When weight/power((height/100.0),2) >= 30 Then 1
+    else 0
+   end) as isObese
+ from patients
+
+
+
+ //Rank - 1 ,1 , 2 , 2 ,3 give same rank to values but next will be lke this 1 ,1 , 3,4
+ SELECT first_name, age,
+RANK() OVER (ORDER BY age DESC) AS rank
+FROM Customers;
+
+// Dense rank - give proper ranking after smae values 1 ,1 , 2 ,3
+
+SELECT first_name, age,
+DENSE_RANK() OVER (ORDER BY age ) AS rank
+FROM Customers;
+
+to get the height slary from each department 
+  select * from (SELECT name, salary,
+  RANK() OVER (PARTITION  BY dept_id order by salary) AS rank
+   FROM employees  ) as data where rank = 1
+

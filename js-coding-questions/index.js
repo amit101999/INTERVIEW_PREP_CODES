@@ -52,7 +52,6 @@ handleScroll();
 handleScroll();
 //
 
-
 // implement promise.all
 
 const promise1 = new Promise((resolve, reject) => {
@@ -61,11 +60,11 @@ const promise1 = new Promise((resolve, reject) => {
   }, 2000);
 });
 
-const promise2 = new Promise((resolve, reject)) => {
+const promise2 = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve("Promise 2 resolved");
   }, 3000);
-};
+});
 
 const promise3 = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -73,5 +72,4 @@ const promise3 = new Promise((resolve, reject) => {
   }, 1000);
 });
 
-Promise.all([promise1, promise2, promise3])
-
+Promise.all([promise1, promise2, promise3]);
