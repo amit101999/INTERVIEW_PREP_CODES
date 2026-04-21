@@ -1,7 +1,9 @@
-import React from 'react'
-import MemoCode from './USEMEMO-USECALLBACK/Callback'
-import MyError from './ERRORBOUNDARY/ErrorBoundary'
-import Request from './RequestCancelation/Request'
+import React from "react";
+import MemoCode from "./USEMEMO-USECALLBACK/Callback";
+import MyError from "./ERRORBOUNDARY/ErrorBoundary";
+import Request from "./RequestCancelation/Request";
+import Countter from "./counterQuestion/Counter";
+import FetchingList from "./fetchingList/FethchingList";
 
 const App = () => {
   return (
@@ -9,10 +11,11 @@ const App = () => {
       {/* <MyError>
         <MemoCode />
       </MyError> */}
-      <Request />
-      asds
+      {/* <Request /> */}
+      {/* <Countter /> */}
+      <FetchingList />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
